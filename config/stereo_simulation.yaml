@@ -1,0 +1,23 @@
+%YAML:1.0
+---
+schema_version: 2
+rectified: 1
+fx: 554.256258422
+fy: 554.256258422
+cx: 320.0
+cy: 240.0
+right_cx: 320.0
+width: 640
+height: 480
+baseline_m: 0.12
+n_features: 2000
+min_initial_points: 100
+min_depth: 0.2
+max_depth: 8.0
+keyframe_min_gap: 2
+keyframe_max_gap: 5
+max_ba_points: 300
+max_keyframes: 8
+max_new_points: 400
+pose_iterations: 30
+ba_iterations: 30

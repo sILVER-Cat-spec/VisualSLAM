@@ -117,6 +117,34 @@ if(BUILD_TESTING)
   endif()
 endif()
 
+# Independent stereo input adapter; the RGB-D pipeline contract stays unchanged.
+target_sources(vslam_foundation PRIVATE src/sensor/stereo_camera.cpp)
+target_sources(vslam_pipeline PRIVATE src/sensor/stereo_preprocessor.cpp src/sensor/stereo_depth_adapter.cpp)
+target_sources(vslam_io PRIVATE src/io/stereo_dataset_io.cpp)
+add_executable(run_stereo_dataset apps/run_stereo_dataset.cpp)
+target_link_libraries(run_stereo_dataset PRIVATE vslam_io)
+target_compile_definitions(run_stereo_dataset PRIVATE VSLAM_DEPTH_ROUTE=1)
+vslam_warnings(run_stereo_dataset)
+
+if(BUILD_TESTING)
+  add_executable(stereo_contract_test tests/unit/stereo_contract_test.cpp)
+  target_link_libraries(stereo_contract_test PRIVATE vslam_io opencv_imgproc)
+  add_test(NAME stereo_contract COMMAND stereo_contract_test)
+
+  target_compile_definitions(stereo_contract_test PRIVATE VSLAM_DEPTH_ROUTE=1)
+
+  add_executable(controlled_backend tests/regression/controlled_backend.cpp)
+  target_link_libraries(controlled_backend PRIVATE vslam::estimation)
+  target_compile_definitions(controlled_backend PRIVATE VSLAM_DEPTH_ROUTE=1)
+  add_test(NAME controlled_backend COMMAND controlled_backend)
+
+  add_executable(stereo_dataset_io_test tests/unit/stereo_dataset_io_test.cpp)
+  target_link_libraries(stereo_dataset_io_test PRIVATE vslam_io)
+  add_test(NAME stereo_dataset_io COMMAND stereo_dataset_io_test)
+endif()
+
+target_sources(vslam_pipeline PRIVATE src/sensor/stereo_rectification.cpp)
+
 add_executable(initial_mapping_example apps/initial_mapping_example.cpp)
 target_link_libraries(initial_mapping_example PRIVATE vslam_io)
 vslam_warnings(initial_mapping_example)

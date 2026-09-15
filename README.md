@@ -40,3 +40,27 @@ Choose a new output directory for each run. Additional examples: `rgbd_camera_ex
 The optional `VSLAM_TEST_PYTHON_BASELINE` check requires a separate Python reference project, NumPy, and OpenCV; it is disabled by default. Python utilities are in `tools/`.
 
 Build products, datasets, logs, generated results, local agent instructions, and Windows download metadata are excluded from version control.
+
+## Run stereo-to-depth SLAM (`features-stereo`)
+
+```sh
+git switch features-stereo
+cmake -S . -B build/stereo -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+cmake --build build/stereo -j2
+ctest --test-dir build/stereo --output-on-failure
+./build/stereo/run_stereo_dataset config/stereo_simulation.yaml /path/to/stereo_manifest.txt results/stereo_run
+```
+
+The runner uses rectified, synchronized left/right images. OpenCV SGBM estimates disparity, the adapter converts valid disparity to metric depth, and the shared RGB-D pipeline estimates the trajectory. The CMake configuration selects this route with `VSLAM_DEPTH_ROUTE=1`.
+
+Set calibrated intrinsics, `right_cx`, and `baseline_m` in the stereo configuration. The runner requires schema version 2 and `rectified: 1`; raw images must be rectified before running it.
+
+The manifest requires the exact first-line header below, followed by left/right timestamps in nanoseconds and image paths. Each timestamp sequence must increase, and paired timestamps must match. Relative image paths resolve from the manifest directory.
+
+```text
+# stereo_manifest_version=2
+1000000000 1000000000 left/000001.png right/000001.png
+1033333333 1033333333 left/000002.png right/000002.png
+```
+
+The RGB-D runner and examples remain available in `build/stereo/` with the same arguments documented above.
