@@ -25,7 +25,7 @@ ctest --test-dir build/main --output-on-failure
 Input images must be rectified, with depth registered to color. Configure camera intrinsics and `depth_scale` (meters per stored depth unit); the supplied configuration is a simulation example.
 
 ```sh
-./build/main/run_dataset config/rgbd_simulation.yaml /path/to/manifest.txt results/rgbd_run
+./build/main/run_dataset /path/to/manifest.txt config/rgbd_simulation.yaml results/rgbd_run
 ```
 
 Manifest rows contain increasing timestamps in nanoseconds, RGB paths, and depth paths. Relative paths resolve from the manifest directory; `#` starts a comment.
