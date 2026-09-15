@@ -1,0 +1,10 @@
+# Stable Linux/WSL source text when edited from Windows.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tiff binary
+*.ply binary
+
+# Markdown uses trailing spaces for intentional hard line breaks.
+*.md whitespace=-blank-at-eol

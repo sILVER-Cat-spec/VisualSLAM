@@ -1,0 +1,26 @@
+%YAML:1.0
+---
+schema_version: 1
+# K-based contract for the v3 recorded 640x480 RGB-D camera; see input/output doc.
+fx: 554.256258422
+fy: 554.256258422
+cx: 320.0
+cy: 240.0
+width: 640
+height: 480
+depth_scale: 1.0
+descriptor: ORB
+n_features: 2000
+match_ratio: 0.75
+mutual: 0
+min_initial_points: 100
+min_depth: 0.2
+max_depth: 8.0
+depth_radius: 1
+keyframe_min_gap: 2
+keyframe_max_gap: 5
+max_ba_points: 300
+max_keyframes: 8
+max_new_points: 400
+pose_iterations: 30
+ba_iterations: 30

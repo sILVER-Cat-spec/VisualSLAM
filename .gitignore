@@ -1,0 +1,84 @@
+# Out-of-source CMake builds and generated binaries
+/build/
+/build-*/
+/cmake-build-*/
+/out/
+/install/
+/CMakeFiles/
+/CMakeCache.txt
+/CTestTestfile.cmake
+/DartConfiguration.tcl
+/cmake_install.cmake
+/Makefile
+/Testing/
+/compile_commands.json
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.dylib
+*.exe
+*.pdb
+*.ilk
+
+# Local datasets, recording bags, generated runs and historical scratch work
+/data/
+/datasets/
+/results/
+/artifacts/
+/log/
+/logs/
+*.db3
+*.db3-shm
+*.db3-wal
+*.mcap
+*.bag
+
+# Local IDE configuration and caches
+/.vs/
+/.vscode/
+/.idea/
+/CMakeUserPresets.json
+*.suo
+*.user
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Python tools and local environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local credentials; example environment configuration may be committed
+.env
+.env.*
+!.env.example
+
+# Generated files at any directory depth
+build/
+build-*/
+cmake-build-*/
+log/
+logs/
+*.log
+
+# Local agent instructions and Windows download metadata
+[Aa][Gg][Ee][Nn][Tt].[Mm][Dd]
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+.agents/
+.codex/
+*:Zone.Identifier
+
+# Historical local run outputs (not required by CTest)
+/tests/baselines/
