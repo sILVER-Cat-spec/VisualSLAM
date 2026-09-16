@@ -1,5 +1,7 @@
 #pragma once
+
 #include "vslam/core/feature_set.h"
+
 namespace vslam::frontend {
 struct ExtractorOptions {
   core::DescriptorKind kind = core::DescriptorKind::Orb;
@@ -7,14 +9,21 @@ struct ExtractorOptions {
   float scale_factor = 1.2f;
   int n_levels = 8;
   int fast_threshold = 20;
-  double min_depth = 0.2, max_depth = 8.0;
+  double min_depth = 0.2;
+  double max_depth = 8.0;
   int depth_radius = 1;
 };
+
 class FeatureExtractor {
  public:
+  // Invalid detector settings or depth limits throw std::invalid_argument.
   explicit FeatureExtractor(ExtractorOptions options);
+
+  // Extract ORB or SIFT from nonempty RGB8/gray8 and aligned CV_32FC1 Z depth in meters.
+  // Unsupported types or mismatched sizes throw; features without valid depth remain usable.
   core::FeatureSet Extract(const cv::Mat& image_rgb_or_gray, const cv::Mat& depth_z_m) const;
+
  private:
   ExtractorOptions options_;
 };
-}
+}  // namespace vslam::frontend
